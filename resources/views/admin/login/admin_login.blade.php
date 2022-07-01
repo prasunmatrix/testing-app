@@ -18,6 +18,26 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                  @if(count($errors) > 0)
+                                    <div class="alert alert-danger alert-dismissable">
+                                      <!-- <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> -->
+                                      @foreach ($errors->all() as $error)
+                                        <span>{{ $error }}</span><br/>
+                                      @endforeach
+                                    </div>
+                                  @endif
+                                  @if(Session::has('success'))
+                                    <div class="alert alert-success alert-dismissable __web-inspector-hide-shortcut__">
+                                        <!-- <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> -->
+                                      {{ Session::get('success') }}
+                                    </div>
+                                  @endif
+                                  @if(Session::has('error'))
+                                    <div class="alert alert-danger alert-dismissable">
+                                        <!-- <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button> -->
+                                      {{ Session::get('error') }}
+                                    </div>
+                                  @endif
                                     <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
                                     <div class="card-body">
                                         <form action="{{ route('admin.verifylogin') }}" method="post" id="login_table">
@@ -42,7 +62,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="register.html">Need an account? Sign up!</a></div>
+                                        <div class="small"><a href="{{ route('admin.register') }}">Need an account? Sign up!</a></div>
                                     </div>
                                 </div>
                             </div>

@@ -22,8 +22,14 @@ Route::get('/', function () {
 //Route::get('/', [HomeController::class, 'index']);
 
 Route::group(["prefix" => "admin","namespace"=>"admin", 'as' => 'admin.'], function() {
-  Route::get('/', [AdminController::class, 'index']);
+  Route::get('/', [AdminController::class, 'index'])->name('login');
   Route::post('/verifylogin', [AdminController::class, 'verifyLogin'])->name('verifylogin');
+  Route::get('/register', [AdminController::class, 'register'])->name('register');
+  Route::post('/register', [AdminController::class, 'postRegister'])->name('register.post');
+  Route::group(['middleware' => 'admin'], function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboardView'])->name('dashboard');
+    Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+  });
 }); 
    
 //Auth::routes();

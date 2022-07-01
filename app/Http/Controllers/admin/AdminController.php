@@ -88,4 +88,114 @@ class AdminController extends Controller
         }
     }
   }
+  public function dashboardView()
+  {
+    $this->data['page_title'] = 'Admin | Dashboard';
+    $this->data['panel_title'] = 'Admin Dashboard';
+    // $this->data['total_user']=User::where('is_deleted','=','N')
+    //                         ->where('usertype','=','FU')
+    //                         ->get()
+    //                         ->count();
+    // $this->data['total_shipment']=Mastershipment::where('is_deleted','=','N')
+    //                             ->get()
+    //                             ->count();
+    return view('admin.dashboard.index', $this->data);
+  }
+  public function logout()
+  {
+    // echo "aaa";die;
+    if (Auth::guard('admin')->logout()) {
+        return Redirect::Route('admin.login');
+    } else {
+        return Redirect::Route('admin.dashboard');
+    }
+  }
+  public function register(Request $request)
+  {
+    $this->data['page_title'] = 'Admin:Registration';
+    $this->data['panel_title'] = 'Admin:Registration';
+    if (Auth::guard('admin')->check()) {
+        // If admin is logged in, redirect him to dashboard page //
+        return \Redirect::route('admin.dashboard');
+    } else {
+        return view('admin.register.register', $this->data);
+    }
+  }
+  public function postRegister(Request $request){
+    //dd($request->all());  
+    $validator = Validator::make($request->all(), 
+    [
+      'first_name'             => 'required',
+      'last_name'              => 'required',
+      //'business_name'          => 'required',
+      'email'                => 'required|email|unique:users',
+      //'phone'           => 'required|min:10|max:10|unique:users',
+      //'password'              => 'required|confirmed|min:8',
+      'password'              => 'required|min:8',
+      'confirm_password'       => 'same:password',
+    ],
+    [      
+      'required' => 'The :attribute field is required',
+      'email.unique'   => 'This email has already been registered',
+      'email'    => 'This is not a valid email format',
+      //'phone.unique'   => 'This phone number has already been taken',
+      //'phone.min' => 'Phone Number has to be :min chars long',
+      //'phone.max' => 'Phone Number can be maximum :max chars long',
+      'password.min' => 'Password must be at least :min characters',
+      //'password.confirmed' => 'Password & Confirm Password must be same',
+      'confirm_password.same' => 'Password & Confirm Password must be same', 
+    ]);
+
+    if ($validator->fails()) {
+      /*echo 'Failed';
+      exit();*/
+      return Redirect::back()
+                  ->withErrors($validator)
+                  ->withInput();
+    } else {
+      $first_name = trim($request->get('first_name'));
+      $last_name = trim($request->get('last_name'));
+      $business_name = trim($request->get('business_name'));
+      $email = trim($request->get('email'));
+      //$phone = trim($request->get('phone'));
+      $password = trim($request->get('password'));
+      $fullname=$first_name." ".$last_name;
+
+      $adminUser = User::create([
+        'name'=>$fullname,
+        'company_name'=>$business_name,
+        'email'=>$email,
+        'usertype'=>'SA',
+        'password'=>$password,
+        'status'=>'A' 
+      ]);
+      if ($adminUser != null) {
+          // $token = Str::random(60);
+          // $frontendUser->userkey = $token;
+          // $frontendUser->save();
+          
+          // $data['token'] = $token;
+          // $data['email'] = $frontendUser->email;
+          // //dd($data);
+          // //Mail::to($email)->send(new FrontEndUserWelcomeMail($data));
+          // Mail::send('email.frontenduser-email-register', $data, function($message) use ($data)
+          //   {
+          //       $message->from('no-reply@mellobridge.com', "Mello Bridge");
+          //       $message->subject("Welcome to Mello Bridge");
+          //       $message->to($data['email']);
+          //   });
+          //$successMsg = 'Thank you '.$adminUser->name.'. PLEASE CHECK YOUR EMAIL to confirm your email address';
+          $successMsg = 'Thank you '.$adminUser->name.' for your registration,please login with your credential.';
+          return Redirect::back()
+                  ->withSuccess($successMsg);
+          
+      } else {
+          $errMsg = array();
+          $errMsg['registrationerror'] = 'Something went wrong, please try again';
+          return Redirect::back()
+                  ->withErrors($errMsg)
+                  ->withInput();
+      }
+    }
+  }
 }
