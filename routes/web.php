@@ -32,7 +32,7 @@ Route::group(["prefix" => "admin","namespace"=>"admin", 'as' => 'admin.'], funct
     Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/add-category', [CategoryController::class, 'create'])->name('add-category');
-    Route::post('/add-category', [CategoryController::class, 'store']);
+    Route::post('/add-category', [CategoryController::class, 'store'])->name('add-category.post');
     Route::get('/edit-category/{category_id}', [CategoryController::class, 'edit']);
     Route::put('/update-category/{category_id}', [CategoryController::class, 'update']);
   });
