@@ -1,9 +1,9 @@
 @extends('admin.layouts.after-login-layout')
 @section('unique-content')
 <div class="container-fluid px-4">
-    <h1 class="mt-4">Add Category</h1>
+    <h1 class="mt-4">Add CMS</h1>
     <ol class="breadcrumb mb-4">
-        <li class="breadcrumb-item active">Add a new category</li>
+        <li class="breadcrumb-item active">Add a new cms</li>
     </ol>
     <div class="container-fluid px-4">
 
@@ -20,15 +20,15 @@
                   </div>
                 @endif
 
-                <form method="POST" action="{{ route('admin.add-category.post') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.add-cms.post') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                      <label>Category Name</label>
+                      <label>Name</label>
                       <input type="text" name="name" value="{{old('name')}}" required  class="form-control" />
                       <span style="color:red;">{{ $errors->first('name') }}</span>
                     </div>
                     <div class="mb-3">
-                      <label>Category Slug</label>
+                      <label>Slug</label>
                       <input type="text" name="slug" value="{{old('slug')}}" required  class="form-control" />
                       <span style="color:red;">{{ $errors->first('slug') }}</span>
                     </div>
@@ -38,7 +38,7 @@
                       <span style="color:red;">{{ $errors->first('description') }}</span>
                     </div>
                     <div class="mb-3">
-                        <label>Category Image</label>
+                        <label>Image</label>
                         <input type="file" name="image" value="{{old('image')}}" class="form-control" />
                     </div>
 
@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-6">
                           <!-- <button type="submit" class="btn btn-primary"> Save Category </button> -->
-                          <input type="submit" class="btn btn-primary" name="save_category" value="Save Category" />
+                          <input type="submit" class="btn btn-primary" name="save_cms" value="Save CMS" />
                         </div>
                     </div>
                 </form>

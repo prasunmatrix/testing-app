@@ -4,26 +4,27 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Models\Cms;
 use Illuminate\Support\Facades\File;
 use Auth;
 use Redirect;
 use Validator;
 
-class CategoryController extends Controller
+class CmsManageController extends Controller
 {
+  //
   public function index()
   {
-    $this->data['page_title'] = 'Admin | Category';
-    $categories = Category::where('is_deleted','0')->get();
-    $this->data['categories']=$categories;
-    return view('admin.category.index', $this->data);
+    $this->data['page_title'] = 'Admin | CMS';
+    $cmsList = Cms::where('is_deleted','0')->get();
+    $this->data['cmsList']=$cmsList;
+    return view('admin.cms.index', $this->data);
   }
   public function create()
   {
-    $this->data['page_title'] = 'Admin | Add Category';
-    $this->data['panel_title'] = 'Admin Add Category';
-    return view('admin.category.create',$this->data);
+    $this->data['page_title'] = 'Admin | Add CMS';
+    $this->data['panel_title'] = 'Admin Add CMS';
+    return view('admin.cms.create',$this->data);
   }
   public function store(Request $request){
     //dd($request->all());  
@@ -58,7 +59,7 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) :
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move('uploads/category', $filename);
+            $file->move('uploads/cms', $filename);
             //$image = $filename;
         endif;
         if(!empty($filename))
@@ -77,7 +78,7 @@ class CategoryController extends Controller
         $status = $request->status == true ? '1' : '0';
         $created_by = Auth::guard('admin')->user()->id;
 
-      $category = Category::create([
+      $cms = Cms::create([
         'name'=>$name,
         'slug'=>$slug,
         'description'=>$description,
@@ -89,10 +90,10 @@ class CategoryController extends Controller
         'status'=>$status,
         'created_by'=>$created_by 
       ]);
-      if ($category != null) {
+      if ($cms != null) {
           
-          $successMsg = 'Category Added Successfully';
-          return Redirect('admin/category')
+          $successMsg = 'CMS Added Successfully';
+          return Redirect('admin/cms')
                   ->withSuccess($successMsg);
           
       } else {
@@ -104,16 +105,16 @@ class CategoryController extends Controller
       }
     }
   }
-  public function edit($category_id)
+  public function edit($cms_id)
   {
-    $this->data['page_title'] = 'Admin | Update Category';
-    $category = Category::find($category_id);
-    $this->data['category']=$category;
-    return view('admin.category.edit', $this->data);
+    $this->data['page_title'] = 'Admin | Update Cms';
+    $cms = Cms::find($cms_id);
+    $this->data['cms']=$cms;
+    return view('admin.cms.edit', $this->data);
   }
-  public function update(Request $request, $category_id)
+  public function update(Request $request, $cms_id)
   {
-    //dd($category_id);
+    //dd($cms_id);
     $validator = Validator::make($request->all(), 
     [
       'name'              => 'required|string|max:200',
@@ -143,18 +144,18 @@ class CategoryController extends Controller
       $name= $request->name;
       $slug = $request->slug;
       $description = $request->description;
-      $category_old_image=$request->category_old_image;
+      $cms_old_image=$request->cms_old_image;
 
       if ($request->hasFile('image')) :
           $file = $request->file('image');
           $filename = time() . '.' . $file->getClientOriginalExtension();
-          $file->move('uploads/category', $filename);
+          $file->move('uploads/cms', $filename);
           //$image = $filename;
       endif;
-      if(!empty($filename) && File::exists(public_path("uploads/category/".$category_old_image)))
+      if(!empty($filename) && File::exists(public_path("uploads/cms/".$cms_old_image)))
       {
-        //$file_path = public_path().'/uploads/category/'.$category_old_image;
-        File::delete(public_path("uploads/category/".$category_old_image));
+        //$file_path = public_path().'/uploads/cms/'.$cms_old_image;
+        File::delete(public_path("uploads/cms/".$cms_old_image));
       }
       
       if(!empty($filename))
@@ -164,7 +165,7 @@ class CategoryController extends Controller
       }
       else
       {
-        $image=$category_old_image;
+        $image=$cms_old_image;
       }
       $meta_title = $request->meta_title;
       $meta_description = $request->meta_description;
@@ -174,7 +175,7 @@ class CategoryController extends Controller
       $status = $request->status == true ? '1' : '0';
       $updated_by = Auth::guard('admin')->user()->id;
 
-      $categoryUpdate = Category::where('id',$category_id)->update([
+      $cmsUpdate = cms::where('id',$cms_id)->update([
         'name'=>$name,
         'slug'=>$slug,
         'description'=>$description,
@@ -186,10 +187,10 @@ class CategoryController extends Controller
         'status'=>$status,
         'created_by'=>$updated_by 
       ]);
-      if ($categoryUpdate != null) {
+      if ($cmsUpdate != null) {
           
-          $successMsg = 'Category Update Successfully';
-          return Redirect('admin/category')
+          $successMsg = 'CMS Update Successfully';
+          return Redirect('admin/cms')
                   ->withSuccess($successMsg);
           
       } else {
@@ -201,16 +202,15 @@ class CategoryController extends Controller
       }
     }
   }
-  public function delete($category_id)
+  public function delete($cms_id)
   {
     $deleted_by = Auth::guard('admin')->user()->id;
-    $deleteCategory = Category::where('id', $category_id)->update([
+    $deleteCategory = Cms::where('id', $cms_id)->update([
       'is_deleted' =>'1',
       'deteted_by'=>$deleted_by
     ]);                                                
-    $successMsg="Category deleted successfully!";
+    $successMsg="CMS deleted successfully!";
     return Redirect::back()
     ->withSuccess($successMsg);  
   }
-}  
-
+}

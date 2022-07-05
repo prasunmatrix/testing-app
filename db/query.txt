@@ -1,2 +1,7 @@
-date: 04/07/2022
+Date: 04/07/2022
 1.CREATE TABLE `matrixmedia_db_testing-app`.`categories` (`id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(255) NOT NULL , `slug` VARCHAR(255) NOT NULL , `description` TEXT NOT NULL , `image` VARCHAR(255) NOT NULL , `meta_title` VARCHAR(255) NOT NULL , `meta_description` TEXT NOT NULL , `meta_keyword` TEXT NOT NULL , `navbar_status` ENUM('1','0') NOT NULL , `status` ENUM('1','0') NOT NULL , `created_by` INT NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , PRIMARY KEY (`id`)) ENGINE = InnoDB;
+
+Date:05/07/2022
+1.ALTER TABLE `categories` CHANGE `image` `image` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL, CHANGE `meta_title` `meta_title` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL, CHANGE `meta_description` `meta_description` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL, CHANGE `meta_keyword` `meta_keyword` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL;
+2.ALTER TABLE `categories`  ADD `is_deleted` ENUM('1','0') NOT NULL  AFTER `created_by`,  ADD `deteted_by` INT NULL DEFAULT NULL  AFTER `is_deleted`;
+3.ALTER TABLE `categories` CHANGE `is_deleted` `is_deleted` ENUM('1','0') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '0';
