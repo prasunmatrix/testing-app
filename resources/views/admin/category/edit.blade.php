@@ -45,18 +45,18 @@
                     <h6>SEO Tags</h6>
                     <div class="mb-3">
                         <label>Meta Title</label>
-                        <input type="text" name="meta_title" value="{{ $category->slug }}" class="form-control" />
+                        <input type="text" name="meta_title" value="{{ $category->meta_title }}" class="form-control" />
                     </div>
 
                     <div class="mb-3">
                         <label>Meta Description</label>
-                        <textarea name="meta_description" rows="3" class="form-control"> {{ $category->slug }}
+                        <textarea name="meta_description" rows="3" class="form-control"> {{ $category->meta_description }}
                         </textarea>
                     </div>
 
                     <div class="mb-3">
                         <label>Meta Keywords</label>
-                        <textarea name="meta_keyword" rows="3" class="form-control">{{ $category->slug }}</textarea>
+                        <textarea name="meta_keyword" rows="3" class="form-control">{{ $category->meta_keyword }}</textarea>
                     </div>
 
                     <h6>Status Mode</h6>
