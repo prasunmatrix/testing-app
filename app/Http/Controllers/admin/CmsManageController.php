@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Cms;
@@ -52,8 +52,24 @@ class CmsManageController extends Controller
                   ->withErrors($validator)
                   ->withInput();
     } else {
+          //$page_slug=$request->slug;
+          $page_slug = Str::slug($request->slug, '-');
+          $count=Cms::select('slug')->where('slug','=',$page_slug)->count();
+          if($count>0)
+          {                  
+            $errMsg = array();
+              $errMsg['slugerror'] = 'Slug already exists.Please enter different slug.';
+              return Redirect::back()
+                          ->withErrors($errMsg)
+                          ->withInput();
+          }
+          else
+          {
+            $pageSlug=$page_slug;
+          }
+          
           $name= $request->name;
-          $slug = $request->slug;
+          //$slug = $request->slug;
           $description = $request->description;
 
         if ($request->hasFile('image')) :
@@ -80,7 +96,7 @@ class CmsManageController extends Controller
 
       $cms = Cms::create([
         'name'=>$name,
-        'slug'=>$slug,
+        'slug'=>$pageSlug,
         'description'=>$description,
         'image'=>$image,
         'meta_title'=>$meta_title,
@@ -141,8 +157,22 @@ class CmsManageController extends Controller
     }
     else
     {
+      $page_slug=Str::slug($request->slug, '-');
+      $count=Cms::select('slug')->where('slug','=',$page_slug)->where('id','!=',$cms_id)->count();
+      if($count>0)
+      {                  
+        $errMsg = array();
+          $errMsg['slugerror'] = 'Slug already exists.Please enter different slug.';
+          return Redirect::back()
+                      ->withErrors($errMsg)
+                      ->withInput();
+      }
+      else
+      {
+        $pageSlug=$page_slug;
+      }
       $name= $request->name;
-      $slug = $request->slug;
+      //$slug = $request->slug;
       $description = $request->description;
       $cms_old_image=$request->cms_old_image;
 
@@ -177,7 +207,7 @@ class CmsManageController extends Controller
 
       $cmsUpdate = cms::where('id',$cms_id)->update([
         'name'=>$name,
-        'slug'=>$slug,
+        'slug'=>$pageSlug,
         'description'=>$description,
         'image'=>$image,
         'meta_title'=>$meta_title,

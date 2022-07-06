@@ -9,12 +9,15 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                    {{$error}}
-                    @endforeach
-                </div>
+                @if(Session::has('success'))
+                  <div class="alert alert-success alert-dismissable __web-inspector-hide-shortcut__">                      
+                      <span style="color:green;">{{ Session::get('success') }}</span>
+                  </div>
+                @endif
+                @if(Session::has('error'))
+                  <div class="alert alert-danger alert-dismissable">
+                      <span style="color:red;">{{ Session::get('error') }}</span>
+                  </div>
                 @endif
 
                 <form method="POST" action="{{ route('admin.update.put',$category->id ) }}"
@@ -23,16 +26,19 @@
                     @method('PUT')
                     <div class="mb-3">
                         <label>Category Name</label>
-                        <input type="text" name="name" value="{{ $category->name }}" class="form-control" />
+                        <input type="text" name="name" value="{{ $category->name }}" required class="form-control" />
+                        <span style="color:red;">{{ $errors->first('name') }}</span>
                     </div>
                     <div class="mb-3">
                         <label>Category Slug</label>
-                        <input type="text" name="slug" value="{{ $category->slug }}" class=" form-control" />
+                        <input type="text" name="slug" value="{{ $category->slug }}" required class=" form-control" />
+                        <span style="color:red;">{{ $errors->first('slug') }}</span>
                     </div>
                     <div class="mb-3">
                         <label>Description</label>
-                        <textarea name="description" rows="5" class="form-control"> {{ $category->description }}
+                        <textarea name="description" rows="5" class="form-control" required> {{ $category->description }}
                         </textarea>
+                        <span style="color:red;">{{ $errors->first('description') }}</span>
                     </div>
                     <div class="mb-3">
                         <img src="{{ asset('uploads/category/'.$category->image) }}" alt="{{ $category->name }}" width="100"

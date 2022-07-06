@@ -9,12 +9,15 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                    {{$error}}
-                    @endforeach
-                </div>
+                @if(Session::has('success'))
+                  <div class="alert alert-success alert-dismissable __web-inspector-hide-shortcut__">                      
+                      <span style="color:green;">{{ Session::get('success') }}</span>
+                  </div>
+                @endif
+                @if(Session::has('error'))
+                  <div class="alert alert-danger alert-dismissable">
+                      <span style="color:red;">{{ Session::get('error') }}</span>
+                  </div>
                 @endif
 
                 <form method="POST" action="{{ route('admin.update.cms',$cms->id ) }}"
@@ -24,15 +27,19 @@
                     <div class="mb-3">
                         <label>Category Name</label>
                         <input type="text" name="name" value="{{ $cms->name }}" class="form-control" />
+                        <span style="color:red;">{{ $errors->first('name') }}</span>
                     </div>
                     <div class="mb-3">
                         <label>Category Slug</label>
                         <input type="text" name="slug" value="{{ $cms->slug }}" class=" form-control" />
+                        <span style="color:red;">{{ $errors->first('slug') }}</span>
+                        <span style="color:red;">{{ $errors->first('slugerror') }}</span>
                     </div>
                     <div class="mb-3">
                         <label>Description</label>
-                        <textarea name="description" rows="5" class="form-control"> {{ $cms->description }}
+                        <textarea name="description" rows="5" class="form-control textarea"> {{ $cms->description }}
                         </textarea>
+                        <span style="color:red;">{{ $errors->first('description') }}</span>
                     </div>
                     <div class="mb-3">
                         <img src="{{ asset('uploads/cms/'.$cms->image) }}" alt="{{ $cms->name }}" width="100"

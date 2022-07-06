@@ -24,17 +24,18 @@
                     @csrf
                     <div class="mb-3">
                       <label>Name</label>
-                      <input type="text" name="name" value="{{old('name')}}" required  class="form-control" />
+                      <input type="text" name="name" value="{{old('name')}}"  class="form-control" />
                       <span style="color:red;">{{ $errors->first('name') }}</span>
                     </div>
                     <div class="mb-3">
                       <label>Slug</label>
-                      <input type="text" name="slug" value="{{old('slug')}}" required  class="form-control" />
+                      <input type="text" name="slug" value="{{old('slug')}}"  class="form-control" />
                       <span style="color:red;">{{ $errors->first('slug') }}</span>
+                      <span style="color:red;">{{ $errors->first('slugerror') }}</span>
                     </div>
                     <div class="mb-3">
                       <label>Description</label>
-                      <textarea name="description" rows="5"  class="form-control" required>{{old('description')}}</textarea>
+                      <textarea name="description" rows="5"  class="form-control textarea">{{old('description')}}</textarea>
                       <span style="color:red;">{{ $errors->first('description') }}</span>
                     </div>
                     <div class="mb-3">
@@ -79,3 +80,6 @@
     </div>
 </div>
 @endsection
+@push('custom-scripts')
+
+@endpush

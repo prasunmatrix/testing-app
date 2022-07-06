@@ -26,7 +26,7 @@
                   <span style="color:red;">{{ Session::get('error') }}</span>
               </div>
             @endif
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="datatablesSimple">
                 <thead>
                     <tr>
                         <th>ID</th>
