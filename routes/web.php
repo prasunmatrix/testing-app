@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\CategoryController;
 use App\Http\Controllers\admin\CmsManageController;
+use App\Http\Controllers\admin\PhotoGalleryController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -43,6 +44,13 @@ Route::group(["prefix" => "admin","namespace"=>"admin", 'as' => 'admin.'], funct
     Route::get('/edit-cms/{cms_id}', [CmsManageController::class, 'edit']);
     Route::put('/update-cms/{cms_id}', [CmsManageController::class, 'update'])->name('update.cms');
     Route::get('/delete-cms/{cms_id}', [CmsManageController::class, 'delete'])->name('delete');
+    Route::get('/photogallery', [PhotoGalleryController::class, 'index'])->name('photogallerylist');
+    Route::get('/add-photogallery', [PhotoGalleryController::class, 'create'])->name('add-photogallery');
+    Route::post('/add-photogallery', [PhotoGalleryController::class, 'store'])->name('add-photogallery.post');
+    Route::get('/edit-photogallery/{photogallery_id}', [PhotoGalleryController::class, 'edit']);
+    Route::put('/update-photogallery/{photogallery_id}', [PhotoGalleryController::class, 'update'])->name('photogallery.cms');
+    Route::get('/delete-photogallery/{photogallery_id}', [PhotoGalleryController::class, 'delete'])->name('delete');
+
   });
 }); 
    

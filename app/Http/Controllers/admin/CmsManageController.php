@@ -54,7 +54,7 @@ class CmsManageController extends Controller
     } else {
           //$page_slug=$request->slug;
           $page_slug = Str::slug($request->slug, '-');
-          $count=Cms::select('slug')->where('slug','=',$page_slug)->count();
+          $count=Cms::select('slug')->where('slug','=',$page_slug)->where('is_deleted','0')->count();
           if($count>0)
           {                  
             $errMsg = array();
@@ -158,7 +158,7 @@ class CmsManageController extends Controller
     else
     {
       $page_slug=Str::slug($request->slug, '-');
-      $count=Cms::select('slug')->where('slug','=',$page_slug)->where('id','!=',$cms_id)->count();
+      $count=Cms::select('slug')->where('slug','=',$page_slug)->where('id','!=',$cms_id)->where('is_deleted','0')->count();
       if($count>0)
       {                  
         $errMsg = array();
