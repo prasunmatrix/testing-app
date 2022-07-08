@@ -45,7 +45,7 @@
                     </div>
                     <div class="mb-3">
                       <label>Gallery Type/Place</label>
-                      <select name="position" id="position" class="form-control">
+                      <select name="position" id="position" value="{{old('position')}}" class="form-control">
                         <option value="">Select Type/Place</option>
                         @if(!empty($categoryList))
                           @foreach($categoryList as $category)
@@ -57,9 +57,10 @@
                     </div>
                     <div class="mb-3">
                       <label>Image</label>
-                      <input type="file" name="image[]" value="{{old('image')}}" class="form-control" multiple />
+                      <input type="file" name="galley_images[]" value="" class="form-control" multiple />
                       <span class="system required" style="color: red;">(Recommended Image Size: 800 &times; 600)*</span><br>
-                      <span style="color:red;">{{ $errors->first('image') }}</span>
+                      <span style="color:red;">{{ $errors->first('galley_images') }}</span>
+                      <span style="color:red;">{{ $errors->first('galley_images.*') }}</span>
                     </div>
                     <!-- <h6>SEO Tags</h6>
                     <div class="mb-3">

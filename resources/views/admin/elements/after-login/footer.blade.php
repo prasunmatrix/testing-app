@@ -26,6 +26,10 @@
             // ]
           });
         })
+        $("#galley_images").change(function() {
+          //readURL(this);
+          alert('test');
+        });
         </script>  
     </body>
 </html>

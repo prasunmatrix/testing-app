@@ -4,11 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\{PhotoGallery,Category};
+use App\Models\{PhotoGallery,Category,PhotoGalleryImage};
 use Illuminate\Support\Facades\File;
 use Auth;
 use Redirect;
 use Validator;
+use App\Traits\ImageUpload;
 
 class PhotoGalleryController extends Controller
 {
@@ -37,14 +38,16 @@ class PhotoGalleryController extends Controller
       'description'       => 'required',
       'display_title'     => 'required|string|max:200',
       'position'          => 'required',
-      'image'             => 'required|mimes:jpeg,jpg,png',
+      'galley_images'     => 'required',
+      'galley_images.*'   => 'image|mimes:jpg,jpeg,png,gif|max:2048',
       'status'            => 'nullable'
     ],
     [      
       'required' => 'The :attribute field is required',
       'title.max' => 'title can be maximum :max chars long',
       'display_title.max' => 'display title can be maximum :max chars long',
-      'position'=>'please select the type/place' 
+      'position'=>'please select the type/place',
+      'galley_images.mimes'=>'Image should be jpeg,png,jpg,gif types', 
     ]);
     if ($validator->fails()) {
       /*echo 'Failed';
@@ -53,7 +56,62 @@ class PhotoGalleryController extends Controller
                   ->withErrors($validator)
                   ->withInput();
     } else {
+      $title= $request->title;
+      $description = $request->description;
+      $display_title= $request->display_title;
+      $position = $request->position;
+      $status = $request->status == true ? '1' : '0';
+      $created_by = Auth::guard('admin')->user()->id;
+      $photoGallery=PhotoGallery::create([
+        'title'=>$title,
+        'description'=>$description,
+        'display_title'=>$display_title,
+        'position'=>$position,
+        'status'=>$status,
+        'created_by'=>$created_by
+      ]);
+      //dd($photoGallery->id);
+      if($photoGallery!=null)
+      {
+        if($request->file('galley_images')) {
+          $files=$request->file('galley_images');
+          foreach($files as $key=>$file){
+              $file_name =time().'-'.$key;
+              $extension = $file->getClientOriginalExtension();
+              $fullFileName = $file_name.'.'.$extension; 
+              $destinationPath = 'uploads/gallery';
+              $uploadResponse= $file->move($destinationPath,$fullFileName); 
 
+              $photoGalleryImage=PhotoGalleryImage::create([
+                'photo_gallery_fk'=>$photoGallery->id,
+                'image'=>$fullFileName
+              ]);    
+          }
+        }
+        $successMsg = 'Photo Gallery Added Successfully';
+          return Redirect('admin/photogallery')
+                  ->withSuccess($successMsg);
+      }
+      else
+      {
+        $errMsg = array();
+          $errMsg['registrationerror'] = 'Something went wrong, please try again';
+          return Redirect::back()
+                  ->withErrors($errMsg)
+                  ->withInput();
+      }  
     }  
+  }
+  public function edit($photogallery_id)
+  {
+    $this->data['page_title'] = 'Admin | Update Photogallery';
+    $photogallery = PhotoGallery::find($photogallery_id);
+    $photoGalleryImage=PhotoGalleryImage::where('photo_gallery_fk',$photogallery_id)->get();
+    //dd($photoGalleryImage);
+    $this->data['photogallery']=$photogallery;
+    $this->data['photoGalleryImage']=$photoGalleryImage;
+    $categoryList = Category::where('is_deleted','0')->where('status','1')->get();
+    $this->data['categoryList']=$categoryList;
+    return view('admin.photogallery.edit', $this->data);
   }
 }

@@ -25,12 +25,12 @@
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label>Category Name</label>
+                        <label>CMS Name</label>
                         <input type="text" name="name" value="{{ $cms->name }}" class="form-control" />
                         <span style="color:red;">{{ $errors->first('name') }}</span>
                     </div>
                     <div class="mb-3">
-                        <label>Category Slug</label>
+                        <label>CMS Slug</label>
                         <input type="text" name="slug" value="{{ $cms->slug }}" class=" form-control" />
                         <span style="color:red;">{{ $errors->first('slug') }}</span>
                         <span style="color:red;">{{ $errors->first('slugerror') }}</span>
@@ -44,7 +44,7 @@
                     <div class="mb-3">
                         <img src="{{ asset('uploads/cms/'.$cms->image) }}" alt="{{ $cms->name }}" width="100"
                                 height="100"> </img><br/>
-                        <label>Category Image</label>
+                        <label>CMS Image</label>
                         <input type="file" name="image" class="form-control" />
                         <input type="hidden" name="cms_old_image" id="cms_old_image" value="{{ $cms->image }}">
                     </div>

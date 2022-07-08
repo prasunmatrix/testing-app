@@ -30,8 +30,8 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Category Name</th>
-                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Display Title</th>
                         <th>Status</th>
                         <th>Action</th>
 
@@ -42,13 +42,10 @@
                     @foreach( $photoGalleryList as $key=>$val )
                     <tr>
                         <td> {{ $key+1 }} </td>
-                        <td> {{ $val->name }} </td>
-                        <td>
-                            <img src="{{ asset('uploads/cms/'.$val->image) }}" alt="{{ $val->name }}" width="50"
-                                height="50"> </img>
-                        </td>
+                        <td> {{ $val->title }} </td>
+                        <td> {{ $val->display_title }}</td>
                         <td> {{ $val->status ==1 ? 'Show':'Hidden'}} </td>
-                        <td> <a href="{{ url('admin/edit-cms/'. $val->id) }}" class="btn btn-success"> Edit </a> | <a href="{{ url('admin/delete-cms/'. $val->id) }}" class="btn btn-danger" onclick="return confirm('Are you want to delete this cms?');"> Delete </a>
+                        <td> <a href="{{ url('admin/edit-photogallery/'. $val->id) }}" class="btn btn-success"> Edit </a> | <a href="{{ url('admin/delete-photogallery/'. $val->id) }}" class="btn btn-danger" onclick="return confirm('Are you want to delete this cms?');"> Delete </a>
                         </td>
 
                     </tr>
