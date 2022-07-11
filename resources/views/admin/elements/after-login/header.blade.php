@@ -11,6 +11,7 @@
         <link href="{{asset('assets/admin/css/styles.css')}}" rel="stylesheet" />
         <!-- summernote -->
         <link rel="stylesheet" href="{{asset('assets/admin/plugins/summernote/summernote-lite.min.css')}}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">

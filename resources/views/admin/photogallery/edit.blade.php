@@ -60,7 +60,7 @@
                         <input type="hidden" name="cms_old_image" id="cms_old_image" value="{{ $cms->image }}">
                     </div>
                      --}}
-                    <div class="mb-3" >
+                    <div class="mb-3 homeImages" >
                       @foreach ($photoGalleryImage as $data )
                         {{-- @php $chkd = ''; if ($data->is_checked == 'Y') $chkd = 'checked'; @endphp --}}
                         <div id="{{ 'imageDiv'.$data->id.'' }}" class="col-sm-3">
@@ -68,7 +68,7 @@
                           <div style="margin-top: 5px;">
                             <div class="row">
                               <div class="col-sm-6">
-                                <button style="background:red;border:none;color:white;border-radius:3px;" class="deletemedia" data-id="{{ $data->id }}" data-encrypt="{{ $data->id }}">Delete</button>
+                                <button style="background:red;border:none;color:white;border-radius:3px;" class="deletemedia" data-id="{{ $data->id }}" data-encrypt="{{ encrypt($data->id) }}">Delete</button>
                               </div>
                               <div class="col-sm-6">
                                 <div style="text-align: right">
@@ -83,7 +83,8 @@
                     <div class="mb-3">
                       <label>Image</label>
                       <input type="file" name="galley_images[]" id="galley_images" value="" class="form-control" multiple />
-                      <span class="system required" style="color: red;">(Recommended Image Size: 800 &times; 600)*</span>  
+                      <span class="system required" style="color: red;">(Recommended Image Size: 800 &times; 600)*</span><br>
+                      <span style="color:red;">{{ $errors->first('galley_images.*') }}</span>  
                     <h6>Status Mode</h6>
                     <div class="row">
                         <div class="col-md-6 mb-6">

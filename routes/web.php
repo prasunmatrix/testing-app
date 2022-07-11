@@ -49,6 +49,7 @@ Route::group(["prefix" => "admin","namespace"=>"admin", 'as' => 'admin.'], funct
     Route::post('/add-photogallery', [PhotoGalleryController::class, 'store'])->name('add-photogallery.post');
     Route::get('/edit-photogallery/{photogallery_id}', [PhotoGalleryController::class, 'edit']);
     Route::put('/update-photogallery/{photogallery_id}', [PhotoGalleryController::class, 'update'])->name('update.photogallery');
+    Route::post('/gallery-image-delete', [PhotoGalleryController::class, 'galleryImageDelete'])->name('gallery_image_delete');
     Route::get('/delete-photogallery/{photogallery_id}', [PhotoGalleryController::class, 'delete'])->name('delete');
 
   });
