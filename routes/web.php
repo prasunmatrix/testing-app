@@ -32,6 +32,8 @@ Route::group(["prefix" => "admin","namespace"=>"admin", 'as' => 'admin.'], funct
   Route::group(['middleware' => 'admin'], function () {
     Route::get('/dashboard', [AdminController::class, 'dashboardView'])->name('dashboard');
     Route::get('/logout', [AdminController::class, 'logout'])->name('logout');
+    Route::get('/change-password', [AdminController::class, 'showChangePasswordForm'])->name('changePassword');
+    Route::post('/change-password', [AdminController::class, 'changePassword'])->name('changePassword');
     Route::get('/category', [CategoryController::class, 'index'])->name('category');
     Route::get('/add-category', [CategoryController::class, 'create'])->name('add-category');
     Route::post('/add-category', [CategoryController::class, 'store'])->name('add-category.post');

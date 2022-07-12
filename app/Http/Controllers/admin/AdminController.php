@@ -8,6 +8,7 @@ use App\Models\User;
 use Auth;
 use Redirect;
 use Validator;
+use Hash;
 
 
 class AdminController extends Controller
@@ -195,6 +196,52 @@ class AdminController extends Controller
           return Redirect::back()
                   ->withErrors($errMsg)
                   ->withInput();
+      }
+    }
+  }
+  public function showChangePasswordForm()
+  {
+    $this->data['page_title'] = 'Admin | Change Password';
+    $this->data['panel_title'] = 'Change Password';      
+    return view('admin.dashboard.changepassword', $this->data);
+  }
+  public function changePassword(Request $request)
+  {
+    //dd($request->all());
+    if (!(Hash::check($request->get('current_password'), Auth::guard('admin')->user()->password))) {
+      // The passwords matches
+      return redirect()->back()->with("error", "Your current password does not matches with the password you provided. Please try again.");
+    } else {
+      try {
+
+          $validationCondition = [
+              'new_password' => 'required',
+              'confirm_password' => 'required|same:new_password',
+          ];
+
+          $validationMessages = array(
+              'new_password.required' => 'New Password is required.',
+              'confirm_password.required' => 'Confirm Password is required.',
+              'confirm_password.same' => 'Confirm Password should be same as new password.',
+          );
+
+          $Validator = Validator::make($request->all(), $validationCondition, $validationMessages);
+          if ($Validator->fails()) {
+              // If validation error occurs, load the error listing
+              return redirect()->back()->withErrors($Validator);
+          } else {
+              $user = User::findOrFail(Auth::guard('admin')->user()->id);
+              $user->password = $request->new_password;
+              $saveResposne = $user->save();
+              if ($saveResposne == true) {
+                  return redirect()->back()->with("success", "Password changed successfully !");
+              } else {
+                  return redirect()->back()->with("error", "Password changed successfully !");
+              }
+          }
+
+      } catch (Exception $e) {
+          return Redirect::Route('admin.changePassword')->with('error', $e->getMessage());
       }
     }
   }

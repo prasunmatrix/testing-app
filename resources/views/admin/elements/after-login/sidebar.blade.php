@@ -4,7 +4,7 @@
           <div class="sb-sidenav-menu">
               <div class="nav">
                   <div class="sb-sidenav-menu-heading">Core</div>
-                  <a class="nav-link" href="{{ route('admin.dashboard') }}">
+                  <a class="nav-link @if(Route::currentRouteName()=='admin.dashboard') {{'active'}} @endif" href="{{ route('admin.dashboard') }}">
                       <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                       Dashboard
                   </a>
@@ -44,7 +44,7 @@
                           <a class="nav-link @if(Route::currentRouteName()=='admin.photogallerylist' || Route::currentRouteName()=='admin.edit-photogallery') {{'active'}} @endif" href="{{ route('admin.photogallerylist') }}">View Photo Gallery</a>
                       </nav>
                   </div>
-                  <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                  <!-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                       <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                       Pages
                       <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -83,7 +83,7 @@
                   <a class="nav-link" href="tables.html">
                       <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                       Tables
-                  </a>
+                  </a> -->
               </div>
           </div>
           <div class="sb-sidenav-footer">
