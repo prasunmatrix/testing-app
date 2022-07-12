@@ -214,5 +214,15 @@ class PhotoGalleryController extends Controller
 
     // return $response;
   }
-
+  public function delete($photogallery_id)
+  {
+    $deleted_by = Auth::guard('admin')->user()->id;
+    $deletePhotoGallery = PhotoGallery::where('id', $photogallery_id)->update([
+      'is_deleted' =>'1',
+      'deteted_by'=>$deleted_by
+    ]);                                                
+    $successMsg="Photo Gallery deleted successfully!";
+    return Redirect::back()
+    ->withSuccess($successMsg);  
+  }
 }
