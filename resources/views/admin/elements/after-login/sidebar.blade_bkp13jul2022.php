@@ -3,15 +3,10 @@
       <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
           <div class="sb-sidenav-menu">
               <div class="nav">
-                  <div class="sb-sidenav-menu-heading">Dashboard</div>
+                  <!-- <div class="sb-sidenav-menu-heading">Core</div> -->
                   <a class="nav-link @if(Route::currentRouteName()=='admin.dashboard') {{'active'}} @endif" href="{{ route('admin.dashboard') }}">
                       <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                       Dashboard
-                  </a>
-                  <div class="sb-sidenav-menu-heading">Manage Settings</div>
-                  <a class="nav-link @if(Route::currentRouteName()=='admin.settings') {{'active'}} @endif" href="{{ route('admin.settings') }}">
-                      <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                      Settings
                   </a>
                   <div class="sb-sidenav-menu-heading">Manage Cahtegory</div>
                   <a class="nav-link collapsed @if(Route::currentRouteName()=='admin.add-category' || Route::currentRouteName()=='admin.category' || Route::currentRouteName()=='admin.edit-category') {{'active'}} @endif" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
