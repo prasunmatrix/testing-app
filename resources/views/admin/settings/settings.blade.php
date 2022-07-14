@@ -32,7 +32,7 @@
                   </div>
                 @endif
 
-                <form method="POST" action="{{ route('admin.post-settings') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('admin.post-settings') }}" enctype="multipart/form-data" autocomplete="off">
                     @csrf
                     <div class="mb-3">
                       <label>Email</label>
@@ -41,27 +41,38 @@
                     </div>
                     <div class="mb-3">
                       <label>Phone</label>
-                      <input type="text" name="phone" value="@if(!empty($settings)){{ $settings->phone }} @endif" maxlength="10" pattern="\d{10}"   class="form-control" />
+                      <input type="text" name="phone" value="@if(!empty($settings->phone)){{ $settings->phone }} @endif" maxlength="10" pattern="\d{10}"   class="form-control" />
                       <span style="color:red;">{{ $errors->first('phone') }}</span>
                     </div>
                     <div class="mb-3">
                       <label>Header Current Logo</label>
-                      <img src="@if(!empty($settings)) {{ asset('uploads/settings/'.$settings->header_logo) }} @endif" alt="" width="100" height="100"> </img><br/>
+                      @if(!empty($settings->header_logo))
+                        <img src="@if(!empty($settings)) {{ asset('uploads/settings/'.$settings->header_logo) }} @endif" alt="" width="100" height="100"> </img><br/>
+                      @else
+                        <img src="{{ asset('uploads/no-image-found.jpg') }}" alt="" width="100" height="100"> </img><br/>
+                      @endif  
                     </div>
                     <div class="mb-3">
                         <label>Header Logo</label>
                         <input type="file" name="header_logo" value="" class="form-control" />
+                        <input type="hidden" name="header_logo_old" id="header_logo_old" value="@if(!empty($settings)) {{ $settings->header_logo }} @endif">
                     </div>
                     <div class="mb-3">
                       <label>Footer Current Logo</label>
-                      <img src="@if(!empty($settings)) {{ asset('uploads/settings/'.$settings->footer_logo) }} @endif" alt="" width="100" height="100"> </img><br/>
+                      @if(!empty($settings->footer_logo))
+                        <img src="@if(!empty($settings)) {{ asset('uploads/settings/'.$settings->footer_logo) }} @endif" alt="" width="100" height="100"> </img><br/>
+                      @else
+                        <img src="{{ asset('uploads/no-image-found.jpg') }}" alt="" width="100" height="100"> </img><br/>
+                      @endif
                     </div>
                     <div class="mb-3">
                       <label>Footer Logo</label>
                       <input type="file" name="footer_logo" value="" class="form-control" />
+                      <input type="hidden" name="footer_logo_old" id="footer_logo_old" value="@if(!empty($settings)) {{ $settings->footer_logo }} @endif">
                     </div>
                     <div class="col-md-3">
                       <!-- <button type="submit" class="btn btn-primary"> Save Category </button> -->
+                      <input type="hidden" name="settings_id" value="@if(!empty($settings)){{ $settings->id }} @endif" />
                       <input type="submit" class="btn btn-primary" name="save" value="Save" />
                     </div> 
                 </form>
