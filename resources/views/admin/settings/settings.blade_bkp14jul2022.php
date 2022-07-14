@@ -81,51 +81,7 @@
       </div>
     </div>
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-      <div class="container-fluid px-4">
-          <div class="card mt-4">
-              <div class="card-body">
-                  @if(Session::has('success'))
-                    <div class="alert alert-success alert-dismissable __web-inspector-hide-shortcut__">                      
-                        <span style="color:green;">{{ Session::get('success') }}</span>
-                    </div>
-                  @endif
-                  @if(Session::has('error'))
-                    <div class="alert alert-danger alert-dismissable">
-                        <span style="color:red;">{{ Session::get('error') }}</span>
-                    </div>
-                  @endif
-
-                  <form method="POST" action="{{ route('admin.post-settings') }}" enctype="multipart/form-data" autocomplete="off">
-                      @csrf
-                      <div class="mb-3">
-                        <label>Facebook</label>
-                        <input type="text" name="facebook"  value="@if(!empty($settings)){{ $settings->facebook }} @endif" class="form-control" />
-                        <span style="color:red;">{{-- $errors->first('facebook') --}}</span>
-                      </div>
-                      <div class="mb-3">
-                        <label>Youtube</label>
-                        <input type="text" name="youtube" value="@if(!empty($settings)){{ $settings->youtube }} @endif" class="form-control" />
-                        <span style="color:red;">{{-- $errors->first('phone') --}}</span>
-                      </div>
-                      <div class="mb-3">
-                        <label>Youtube</label>
-                        <input type="text" name="youtube" value="@if(!empty($settings)){{ $settings->youtube }} @endif" class="form-control" />
-                        <span style="color:red;">{{-- $errors->first('phone') --}}</span>
-                      </div>
-                      <div class="mb-3">
-                        <label>Youtube</label>
-                        <input type="text" name="youtube" value="@if(!empty($settings)){{ $settings->youtube }} @endif" class="form-control" />
-                        <span style="color:red;">{{-- $errors->first('phone') --}}</span>
-                      </div>
-                      <div class="col-md-3">
-                        <!-- <button type="submit" class="btn btn-primary"> Save Category </button> -->
-                        <input type="hidden" name="settings_id" value="@if(!empty($settings)){{ $settings->id }} @endif" />
-                        <input type="submit" class="btn btn-primary" name="save" value="Save" />
-                      </div> 
-                  </form>
-              </div>
-          </div>
-      </div>
+      Testing1234
     </div>
     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
       Testing666
