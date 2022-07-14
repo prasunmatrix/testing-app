@@ -56,6 +56,7 @@ Route::group(["prefix" => "admin","namespace"=>"admin", 'as' => 'admin.'], funct
     Route::get('/delete-photogallery/{photogallery_id}', [PhotoGalleryController::class, 'delete'])->name('delete');
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
     Route::post('/settings', [SettingsController::class, 'postSettings'])->name('post-settings');
+    Route::post('/settings-social', [SettingsController::class, 'postSettingsSocial'])->name('post-settings-social');
   });
 }); 
    

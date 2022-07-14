@@ -135,4 +135,39 @@ class SettingsController extends Controller
 
     }
   }
+  public function postSettingsSocial(Request $request)
+  {
+    $count=Settings::count();
+    if($count==0)
+    { 
+      $settingsSocial=Settings::create([
+        'facebook'=>$request->facebook,
+        'youtube'=>$request->youtube,
+        'linkedin'=>$request->linkedin,
+        'instagram'=>$request->instagram,
+        'twitter'=>$request->twitter
+      ]);
+      if ($settingsSocial != null) {          
+        $successMsg = 'Settings Updated Successfully';
+        return Redirect('admin/settings')
+                ->withSuccess($successMsg);    
+      }
+    }
+    else
+    {
+      $settings_id=$request->settings_id;
+      $settingsSocialUpdate=Settings::where('id',$settings_id)->update([
+        'facebook'=>$request->facebook,
+        'youtube'=>$request->youtube,
+        'linkedin'=>$request->linkedin,
+        'instagram'=>$request->instagram,
+        'twitter'=>$request->twitter
+      ]);
+      if ($settingsSocialUpdate != null) {          
+        $successMsg = 'Settings Updated Successfully';
+        return Redirect('admin/settings')
+                ->withSuccess($successMsg);    
+      }
+    }  
+  }
 }

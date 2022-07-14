@@ -95,7 +95,7 @@
                     </div>
                   @endif
 
-                  <form method="POST" action="{{ route('admin.post-settings') }}" enctype="multipart/form-data" autocomplete="off">
+                  <form method="POST" action="{{ route('admin.post-settings-social') }}" enctype="multipart/form-data" autocomplete="off">
                       @csrf
                       <div class="mb-3">
                         <label>Facebook</label>
@@ -108,13 +108,18 @@
                         <span style="color:red;">{{-- $errors->first('phone') --}}</span>
                       </div>
                       <div class="mb-3">
-                        <label>Youtube</label>
-                        <input type="text" name="youtube" value="@if(!empty($settings)){{ $settings->youtube }} @endif" class="form-control" />
+                        <label>Linkedin</label>
+                        <input type="text" name="linkedin" value="@if(!empty($settings)){{ $settings->linkedin }} @endif" class="form-control" />
                         <span style="color:red;">{{-- $errors->first('phone') --}}</span>
                       </div>
                       <div class="mb-3">
-                        <label>Youtube</label>
-                        <input type="text" name="youtube" value="@if(!empty($settings)){{ $settings->youtube }} @endif" class="form-control" />
+                        <label>Instagram</label>
+                        <input type="text" name="instagram" value="@if(!empty($settings)){{ $settings->instagram }} @endif" class="form-control" />
+                        <span style="color:red;">{{-- $errors->first('phone') --}}</span>
+                      </div>
+                      <div class="mb-3">
+                        <label>Twitter</label>
+                        <input type="text" name="twitter" value="@if(!empty($settings)){{ $settings->twitter }} @endif" class="form-control" />
                         <span style="color:red;">{{-- $errors->first('phone') --}}</span>
                       </div>
                       <div class="col-md-3">
