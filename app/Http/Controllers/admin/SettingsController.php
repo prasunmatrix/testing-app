@@ -34,7 +34,7 @@ class SettingsController extends Controller
       if ($request->hasFile('header_logo')) :
         $file = $request->file('header_logo');
         $filename = time() . '_header.' . $file->getClientOriginalExtension();
-        $file->move('uploads/settings', $filename);
+        $file->move(public_path().'/uploads/settings', $filename);
         //$image = $filename;
       endif;
       if(!empty($filename))
@@ -48,7 +48,7 @@ class SettingsController extends Controller
       if ($request->hasFile('footer_logo')) :
         $file1 = $request->file('footer_logo');
         $filename1 = time() . '_footer.' . $file1->getClientOriginalExtension();
-        $file1->move('uploads/settings', $filename1);
+        $file1->move(public_path().'/uploads/settings', $filename1);
         //$image = $filename;
       endif;
       if(!empty($filename1))
@@ -85,7 +85,7 @@ class SettingsController extends Controller
       if ($request->hasFile('header_logo')) :
         $file = $request->file('header_logo');
         $filename = time() . '_header.' . $file->getClientOriginalExtension();
-        $file->move('uploads/settings', $filename);
+        $file->move(public_path().'/uploads/settings', $filename);
         //$image = $filename;
       endif;
       if(!empty($filename) && File::exists(public_path("uploads/settings/".$header_logo_old)))
@@ -104,7 +104,7 @@ class SettingsController extends Controller
       if ($request->hasFile('footer_logo')) :
         $file1 = $request->file('footer_logo');
         $filename1 = time() . '_footer.' . $file1->getClientOriginalExtension();
-        $file1->move('uploads/settings', $filename1);
+        $file1->move(public_path().'/uploads/settings', $filename1); 
         //$image = $filename;
       endif;
       if(!empty($filename1) && File::exists(public_path("uploads/settings/".$footer_logo_old)))

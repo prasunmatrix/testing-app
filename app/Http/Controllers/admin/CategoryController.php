@@ -58,7 +58,7 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) :
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move('uploads/category', $filename);
+            $file->move(public_path().'/uploads/category', $filename);
             //$image = $filename;
         endif;
         if(!empty($filename))
@@ -148,7 +148,7 @@ class CategoryController extends Controller
       if ($request->hasFile('image')) :
           $file = $request->file('image');
           $filename = time() . '.' . $file->getClientOriginalExtension();
-          $file->move('uploads/category', $filename);
+          $file->move(public_path().'/uploads/category', $filename);
           //$image = $filename;
       endif;
       if(!empty($filename) && File::exists(public_path("uploads/category/".$category_old_image)))

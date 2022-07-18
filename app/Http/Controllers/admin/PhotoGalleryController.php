@@ -79,7 +79,7 @@ class PhotoGalleryController extends Controller
               $file_name =time().'-'.$key;
               $extension = $file->getClientOriginalExtension();
               $fullFileName = $file_name.'.'.$extension; 
-              $destinationPath = 'uploads/gallery';
+              $destinationPath = public_path().'/uploads/gallery';
               $uploadResponse= $file->move($destinationPath,$fullFileName); 
 
               $photoGalleryImage=PhotoGalleryImage::create([
@@ -159,7 +159,7 @@ class PhotoGalleryController extends Controller
             $file_name =time().'-'.$key;
             $extension = $file->getClientOriginalExtension();
             $fullFileName = $file_name.'.'.$extension; 
-            $destinationPath = 'uploads/gallery';
+            $destinationPath = public_path().'/uploads/gallery';
             $uploadResponse= $file->move($destinationPath,$fullFileName); 
 
             $photoGalleryImage=PhotoGalleryImage::create([

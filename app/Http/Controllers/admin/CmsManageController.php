@@ -75,7 +75,7 @@ class CmsManageController extends Controller
         if ($request->hasFile('image')) :
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $file->move('uploads/cms', $filename);
+            $file->move(public_path().'/uploads/cms', $filename);
             //$image = $filename;
         endif;
         if(!empty($filename))
@@ -179,7 +179,7 @@ class CmsManageController extends Controller
       if ($request->hasFile('image')) :
           $file = $request->file('image');
           $filename = time() . '.' . $file->getClientOriginalExtension();
-          $file->move('uploads/cms', $filename);
+          $file->move(public_path().'/uploads/cms', $filename);
           //$image = $filename;
       endif;
       if(!empty($filename) && File::exists(public_path("uploads/cms/".$cms_old_image)))
