@@ -17,3 +17,19 @@ Date:11/07/2022
 1. CREATE TABLE `matrixmedia_db_testing-app`.`settings` (`id` INT NOT NULL AUTO_INCREMENT , `email` VARCHAR(255) NOT NULL , `phone` VARCHAR(255) NOT NULL , `header_logo` VARCHAR(255) NOT NULL , `facebook` VARCHAR(255) NOT NULL , `youtube` VARCHAR(255) NOT NULL , `linkedin` VARCHAR(255) NOT NULL , `instagram` VARCHAR(255) NOT NULL , `twitter` VARCHAR(255) NOT NULL , `footer_logo` VARCHAR(255) NOT NULL , `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP , `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NULL DEFAULT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 2. ALTER TABLE `settings` CHANGE `email` `email` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `phone` `phone` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `header_logo` `header_logo` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `footer_logo` `footer_logo` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `facebook` `facebook` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `youtube` `youtube` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `linkedin` `linkedin` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `instagram` `instagram` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `twitter` `twitter` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+Date:20/07/2022
+1. CREATE TABLE `matrixmedia_db_testing-app`.`branch_details` ( `id` INT NOT NULL AUTO_INCREMENT ,  `district` VARCHAR(255) NOT NULL ,  `block` VARCHAR(255) NOT NULL ,  `gram_panchayat` VARCHAR(255) NOT NULL ,  `name_of_the_bank` VARCHAR(255) NOT NULL ,  `name_of_the_branch` VARCHAR(255) NOT NULL ,  `ifsc_code` VARCHAR(255) NOT NULL ,  `branch_code` VARCHAR(255) NOT NULL ,  `lat` DOUBLE NOT NULL ,  `long` DOUBLE NOT NULL ,  `status` ENUM('1','0') NOT NULL ,  `created_by` INT NOT NULL ,  `is_deleted` ENUM('1','0') NOT NULL DEFAULT '0' ,  `deleted_by` INT NOT NULL ,  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,  `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+2. ALTER TABLE `branch_details` CHANGE `lat` `latitude` DOUBLE NOT NULL, CHANGE `long` `longitude` DOUBLE NOT NULL;
+
+3. CREATE TABLE `matrixmedia_db_testing-app`.`district_block` ( `id` INT NOT NULL AUTO_INCREMENT ,  `district_block_name` VARCHAR(255) NOT NULL ,  `master_id` INT NOT NULL ,  `status` ENUM('1','0') NOT NULL ,  `created_by` INT NOT NULL ,  `is_deleted` ENUM('1','0') NOT NULL DEFAULT '0' ,  `deleted_by` INT NOT NULL ,  `created_at` TIMESTAMP NOT NULL ,  `updated_at` TIMESTAMP on update CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,    PRIMARY KEY  (`id`)) ENGINE = InnoDB;
+
+Date: 22/07/2022
+1. ALTER TABLE `branch_details` CHANGE `district` `district` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'id of district_block table', CHANGE `block` `block` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'id of district_block table';
+
+2. ALTER TABLE `district_block` CHANGE `deleted_by` `deleted_by` INT(11) NULL DEFAULT NULL;
+
+3. INSERT INTO `district_block` (`id`, `district_block_name`, `master_id`, `status`, `created_by`, `is_deleted`, `deleted_by`, `created_at`, `updated_at`) VALUES (NULL, 'UTTAR DINAJPUR', '0', '1', '1', '0', NULL, current_timestamp(), current_timestamp()), (NULL, 'DAKSHIN DINAJPUR', '0', '1', '1', '0', NULL, current_timestamp(), current_timestamp());
+
+4. ALTER TABLE `district_block` DROP `master_id`;

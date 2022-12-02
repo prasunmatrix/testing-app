@@ -41,7 +41,7 @@
                     </div>
                     <div class="mb-3">
                       <label>Phone</label>
-                      <input type="text" name="phone" value="@if(!empty($settings->phone)){{ $settings->phone }} @endif" maxlength="10" pattern="\d{10}"   class="form-control" />
+                      <input type="tel" name="phone" value="@if(!empty($settings->phone)){{ $settings->phone }} @endif" pattern="\d{10}"   class="form-control" />
                       <span style="color:red;">{{ $errors->first('phone') }}</span>
                     </div>
                     <div class="mb-3">
